@@ -1,12 +1,20 @@
 type User {
-  id: ID
-  name: String
+  id: ID!
+  name: String!
+  email: String!
 }
 
-type Mutation {
-  hi: String
-}
+# type Mutation {
+#   createItem(
+#     title: String!
+#     description: String!
+#     price: Int!
+#     image: String
+#     largeImage: String
+#   ): Item!
+# }
 
 type Query {
-  hi: String
+  # items: [Item]!
+  hi: String!
 }
