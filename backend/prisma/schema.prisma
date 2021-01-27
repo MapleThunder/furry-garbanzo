@@ -12,3 +12,15 @@ model User {
   name  String
   email String @unique
 }
+
+model Item {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  image       String?
+  largeImage  String?
+  price       Int
+  createdAt   DateTime
+  updatedAt   DateTime
+  // user User
+}

@@ -4,17 +4,24 @@ type User {
   email: String!
 }
 
-# type Mutation {
-#   createItem(
-#     title: String!
-#     description: String!
-#     price: Int!
-#     image: String
-#     largeImage: String
-#   ): Item!
-# }
+type Item {
+  title: String!
+  description: String!
+  price: Int!
+  image: String
+  largeImage: String
+}
+
+type Mutation {
+  createItem(
+    title: String!
+    description: String!
+    price: Int!
+    image: String
+    largeImage: String
+  ): Item!
+}
 
 type Query {
-  # items: [Item]!
-  hi: String!
+  items: [Item]!
 }
