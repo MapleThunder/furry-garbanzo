@@ -10,7 +10,7 @@ type Pagination = {
 }
 
 // Prisma custom scalar names
-type CustomScalars = 'DateTime'
+type CustomScalars = 'No custom scalars are used in your Prisma Schema.'
 
 // Prisma model type definitions
 interface PrismaModels {
@@ -26,8 +26,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'name' | 'email'
     }
     items: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'createdAt' | 'updatedAt'
-      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'createdAt' | 'updatedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price'
+      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price'
     }
   },
   User: {
@@ -72,8 +72,6 @@ interface NexusPrismaOutputs {
     image: 'String'
     largeImage: 'String'
     price: 'Int'
-    createdAt: 'DateTime'
-    updatedAt: 'DateTime'
   }
 }
 

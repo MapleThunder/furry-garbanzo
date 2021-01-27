@@ -1,16 +1,4 @@
-type User {
-  id: ID!
-  name: String!
-  email: String!
-}
-
-type Item {
-  title: String!
-  description: String!
-  price: Int!
-  image: String
-  largeImage: String
-}
+# import  * from "./generated/prisma.graphql"
 
 type Mutation {
   createItem(
