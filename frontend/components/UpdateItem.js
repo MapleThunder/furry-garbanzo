@@ -57,7 +57,6 @@ class UpdateItem extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <Query
         query={SINGLE_ITEM_QUERY}
