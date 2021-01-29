@@ -9,6 +9,9 @@ const Query = {
 
     return item;
   },
+  async itemCount(_, args, context, info) {
+    return await context.db.item.count(args);
+  },
 };
 
 module.exports = Query;
