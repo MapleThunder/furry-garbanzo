@@ -22,8 +22,8 @@ interface PrismaModels {
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email'
-      ordering: 'id' | 'name' | 'email'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions'
+      ordering: 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions'
     }
     items: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price'
@@ -64,6 +64,10 @@ interface NexusPrismaOutputs {
     id: 'Int'
     name: 'String'
     email: 'String'
+    password: 'String'
+    resetToken: 'String'
+    resetTokenExpiry: 'Float'
+    permissions: 'Permission'
   }
   Item: {
     id: 'Int'

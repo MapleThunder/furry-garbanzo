@@ -19,6 +19,16 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  FloatNullableFilter: { // input type
+    equals?: number | null; // Float
+    gt?: number | null; // Float
+    gte?: number | null; // Float
+    in?: Array<number | null> | null; // [Float]
+    lt?: number | null; // Float
+    lte?: number | null; // Float
+    not?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
+    notIn?: Array<number | null> | null; // [Float]
+  }
   IntFieldUpdateOperationsInput: { // input type
     set?: number | null; // Int
   }
@@ -67,6 +77,16 @@ export interface NexusGenInputs {
   ItemWhereUniqueInput: { // input type
     id?: number | null; // Int
   }
+  NestedFloatNullableFilter: { // input type
+    equals?: number | null; // Float
+    gt?: number | null; // Float
+    gte?: number | null; // Float
+    in?: Array<number | null> | null; // [Float]
+    lt?: number | null; // Float
+    lte?: number | null; // Float
+    not?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
+    notIn?: Array<number | null> | null; // [Float]
+  }
   NestedIntFilter: { // input type
     equals?: number | null; // Int
     gt?: number | null; // Int
@@ -103,6 +123,9 @@ export interface NexusGenInputs {
     notIn?: Array<string | null> | null; // [String]
     startsWith?: string | null; // String
   }
+  NullableFloatFieldUpdateOperationsInput: { // input type
+    set?: number | null; // Float
+  }
   NullableStringFieldUpdateOperationsInput: { // input type
     set?: string | null; // String
   }
@@ -138,14 +161,32 @@ export interface NexusGenInputs {
   UserCreateInput: { // input type
     email: string; // String!
     name: string; // String!
+    password: string; // String!
+    permissions?: NexusGenInputs['UserCreatepermissionsInput'] | null; // UserCreatepermissionsInput
+    resetToken?: string | null; // String
+    resetTokenExpiry?: number | null; // Float
+  }
+  UserCreatepermissionsInput: { // input type
+    set?: Array<NexusGenEnums['Permission'] | null> | null; // [Permission]
   }
   UserUpdateInput: { // input type
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    permissions?: NexusGenInputs['UserUpdatepermissionsInput'] | null; // UserUpdatepermissionsInput
+    resetToken?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    resetTokenExpiry?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
   }
   UserUpdateManyMutationInput: { // input type
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    permissions?: NexusGenInputs['UserUpdatepermissionsInput'] | null; // UserUpdatepermissionsInput
+    resetToken?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    resetTokenExpiry?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
+  }
+  UserUpdatepermissionsInput: { // input type
+    set?: Array<NexusGenEnums['Permission'] | null> | null; // [Permission]
   }
   UserWhereInput: { // input type
     AND?: Array<NexusGenInputs['UserWhereInput'] | null> | null; // [UserWhereInput]
@@ -154,6 +195,10 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: Array<NexusGenInputs['UserWhereInput'] | null> | null; // [UserWhereInput]
     OR?: Array<NexusGenInputs['UserWhereInput'] | null> | null; // [UserWhereInput]
+    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    permissions?: Array<NexusGenEnums['Permission'] | null> | null; // [Permission]
+    resetToken?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    resetTokenExpiry?: NexusGenInputs['FloatNullableFilter'] | null; // FloatNullableFilter
   }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
@@ -162,6 +207,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  Permission: "ADMIN" | "ITEM_CREATE" | "ITEM_DELETE" | "ITEM_UPDATE" | "PERMISSION_UPDATE" | "USER"
 }
 
 export interface NexusGenScalars {
@@ -190,10 +236,15 @@ export interface NexusGenRootTypes {
     email: string; // String!
     id: number; // Int!
     name: string; // String!
+    password: string; // String!
+    permissions: NexusGenEnums['Permission'][]; // [Permission!]!
+    resetToken?: string | null; // String
+    resetTokenExpiry?: number | null; // Float
   }
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  FloatNullableFilter: NexusGenInputs['FloatNullableFilter'];
   IntFieldUpdateOperationsInput: NexusGenInputs['IntFieldUpdateOperationsInput'];
   IntFilter: NexusGenInputs['IntFilter'];
   ItemCreateInput: NexusGenInputs['ItemCreateInput'];
@@ -201,18 +252,23 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ItemUpdateManyMutationInput: NexusGenInputs['ItemUpdateManyMutationInput'];
   ItemWhereInput: NexusGenInputs['ItemWhereInput'];
   ItemWhereUniqueInput: NexusGenInputs['ItemWhereUniqueInput'];
+  NestedFloatNullableFilter: NexusGenInputs['NestedFloatNullableFilter'];
   NestedIntFilter: NexusGenInputs['NestedIntFilter'];
   NestedStringFilter: NexusGenInputs['NestedStringFilter'];
   NestedStringNullableFilter: NexusGenInputs['NestedStringNullableFilter'];
+  NullableFloatFieldUpdateOperationsInput: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'];
   NullableStringFieldUpdateOperationsInput: NexusGenInputs['NullableStringFieldUpdateOperationsInput'];
   StringFieldUpdateOperationsInput: NexusGenInputs['StringFieldUpdateOperationsInput'];
   StringFilter: NexusGenInputs['StringFilter'];
   StringNullableFilter: NexusGenInputs['StringNullableFilter'];
   UserCreateInput: NexusGenInputs['UserCreateInput'];
+  UserCreatepermissionsInput: NexusGenInputs['UserCreatepermissionsInput'];
   UserUpdateInput: NexusGenInputs['UserUpdateInput'];
   UserUpdateManyMutationInput: NexusGenInputs['UserUpdateManyMutationInput'];
+  UserUpdatepermissionsInput: NexusGenInputs['UserUpdatepermissionsInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  Permission: NexusGenEnums['Permission'];
   String: NexusGenScalars['String'];
   Int: NexusGenScalars['Int'];
   Float: NexusGenScalars['Float'];
@@ -256,6 +312,10 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     id: number; // Int!
     name: string; // String!
+    password: string; // String!
+    permissions: NexusGenEnums['Permission'][]; // [Permission!]!
+    resetToken: string | null; // String
+    resetTokenExpiry: number | null; // Float
   }
 }
 
@@ -335,9 +395,9 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "BatchPayload" | "Item" | "Mutation" | "Query" | "User";
 
-export type NexusGenInputNames = "IntFieldUpdateOperationsInput" | "IntFilter" | "ItemCreateInput" | "ItemUpdateInput" | "ItemUpdateManyMutationInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NestedIntFilter" | "NestedStringFilter" | "NestedStringNullableFilter" | "NullableStringFieldUpdateOperationsInput" | "StringFieldUpdateOperationsInput" | "StringFilter" | "StringNullableFilter" | "UserCreateInput" | "UserUpdateInput" | "UserUpdateManyMutationInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "FloatNullableFilter" | "IntFieldUpdateOperationsInput" | "IntFilter" | "ItemCreateInput" | "ItemUpdateInput" | "ItemUpdateManyMutationInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NestedFloatNullableFilter" | "NestedIntFilter" | "NestedStringFilter" | "NestedStringNullableFilter" | "NullableFloatFieldUpdateOperationsInput" | "NullableStringFieldUpdateOperationsInput" | "StringFieldUpdateOperationsInput" | "StringFilter" | "StringNullableFilter" | "UserCreateInput" | "UserCreatepermissionsInput" | "UserUpdateInput" | "UserUpdateManyMutationInput" | "UserUpdatepermissionsInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = "Permission";
 
 export type NexusGenInterfaceNames = never;
 

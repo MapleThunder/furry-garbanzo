@@ -1,0 +1,45 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateEnum",
+      "enum": "Permission",
+      "values": [
+        "ADMIN",
+        "USER",
+        "ITEM_CREATE",
+        "ITEM_UPDATE",
+        "ITEM_DELETE",
+        "PERMISSION_UPDATE"
+      ]
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "password",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "resetToken",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "resetTokenExpiry",
+      "type": "Float",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "permissions",
+      "type": "Permission",
+      "arity": "List"
+    }
+  ]
+}

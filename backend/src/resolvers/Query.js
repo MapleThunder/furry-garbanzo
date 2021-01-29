@@ -1,6 +1,6 @@
 const Query = {
   async items(parent, args, context, info) {
-    const items = context.db.item.findMany();
+    const items = context.db.item.findMany(args);
     return items;
   },
   async item(parent, args, context, info) {
@@ -9,7 +9,7 @@ const Query = {
 
     return item;
   },
-  async itemCount(_, args, context, info) {
+  async itemCount(parent, args, context, info) {
     return await context.db.item.count(args);
   },
 };

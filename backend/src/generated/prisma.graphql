@@ -6,6 +6,17 @@ type BatchPayload {
   count: Int!
 }
 
+input FloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float]
+}
+
 input IntFieldUpdateOperationsInput {
   set: Int
 }
@@ -85,6 +96,17 @@ type Mutation {
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
+input NestedFloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float]
+}
+
 input NestedIntFilter {
   equals: Int
   gt: Int
@@ -124,8 +146,21 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+input NullableFloatFieldUpdateOperationsInput {
+  set: Float
+}
+
 input NullableStringFieldUpdateOperationsInput {
   set: String
+}
+
+enum Permission {
+  ADMIN
+  ITEM_CREATE
+  ITEM_DELETE
+  ITEM_UPDATE
+  PERMISSION_UPDATE
+  USER
 }
 
 type Query {
@@ -171,21 +206,45 @@ type User {
   email: String!
   id: Int!
   name: String!
+  password: String!
+  permissions: [Permission!]!
+  resetToken: String
+  resetTokenExpiry: Float
 }
 
 input UserCreateInput {
   email: String!
   name: String!
+  password: String!
+  permissions: UserCreatepermissionsInput
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+input UserCreatepermissionsInput {
+  set: [Permission]
 }
 
 input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  resetToken: NullableStringFieldUpdateOperationsInput
+  resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  resetToken: NullableStringFieldUpdateOperationsInput
+  resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
+}
+
+input UserUpdatepermissionsInput {
+  set: [Permission]
 }
 
 input UserWhereInput {
@@ -195,6 +254,10 @@ input UserWhereInput {
   name: StringFilter
   NOT: [UserWhereInput]
   OR: [UserWhereInput]
+  password: StringFilter
+  permissions: [Permission]
+  resetToken: StringNullableFilter
+  resetTokenExpiry: FloatNullableFilter
 }
 
 input UserWhereUniqueInput {

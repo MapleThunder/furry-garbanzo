@@ -10,10 +10,22 @@ type Mutation {
   ): Item!
   updateItem(id: ID!, title: String, description: String, price: Int): Item!
   deleteItem(id: ID!): Item
+  signup(email: String!, password: String!, name: String!): User!
 }
 
 type Query {
-  items: [Item]!
+  items(
+    where: ItemWhereInput
+    orderBy: ItemOrderByInput
+    skip: Int
+    take: Int
+  ): [Item]!
   item(where: ItemWhereUniqueInput!): Item
   itemCount(where: ItemWhereInput): Int!
+}
+
+input ItemOrderByInput {
+  id: String
+  title: String
+  price: String
 }
