@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config({ path: ".env" });
 const createServer = require("./createServer");
+const db = require("./db");
 
 const server = createServer();
 
@@ -15,6 +16,18 @@ server.express.use((req, res, next) => {
     // Add the userId to the request so it is available for all pages
     req.userId = userId;
   }
+  next();
+});
+
+// 2. Create a middleware that populates the user on every request
+server.express.use(async (req, res, next) => {
+  // If they aren't logged in, skip this
+  if (!req.userId) return next();
+  const user = await db.user.findOne(
+    { where: { id: req.userId } },
+    `{id, permissions, email, name}`
+  );
+  req.user = user;
   next();
 });
 
