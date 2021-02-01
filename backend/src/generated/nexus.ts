@@ -48,8 +48,45 @@ export interface NexusGenInputs {
     largeImage?: string | null; // String
     price: number; // Int!
     title: string; // String!
+    user: NexusGenInputs['UserCreateOneWithoutItemInput']; // UserCreateOneWithoutItemInput!
+  }
+  ItemCreateManyWithoutUserInput: { // input type
+    connect?: Array<NexusGenInputs['ItemWhereUniqueInput'] | null> | null; // [ItemWhereUniqueInput]
+    create?: Array<NexusGenInputs['ItemCreateWithoutUserInput'] | null> | null; // [ItemCreateWithoutUserInput]
+  }
+  ItemCreateWithoutUserInput: { // input type
+    description: string; // String!
+    image?: string | null; // String
+    largeImage?: string | null; // String
+    price: number; // Int!
+    title: string; // String!
+  }
+  ItemListRelationFilter: { // input type
+    every?: NexusGenInputs['ItemWhereInput'] | null; // ItemWhereInput
+    none?: NexusGenInputs['ItemWhereInput'] | null; // ItemWhereInput
+    some?: NexusGenInputs['ItemWhereInput'] | null; // ItemWhereInput
+  }
+  ItemScalarWhereInput: { // input type
+    AND?: Array<NexusGenInputs['ItemScalarWhereInput'] | null> | null; // [ItemScalarWhereInput]
+    description?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    image?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    largeImage?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    NOT?: Array<NexusGenInputs['ItemScalarWhereInput'] | null> | null; // [ItemScalarWhereInput]
+    OR?: Array<NexusGenInputs['ItemScalarWhereInput'] | null> | null; // [ItemScalarWhereInput]
+    price?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    userId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   ItemUpdateInput: { // input type
+    description?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    image?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    largeImage?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    price?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    user?: NexusGenInputs['UserUpdateOneRequiredWithoutItemInput'] | null; // UserUpdateOneRequiredWithoutItemInput
+  }
+  ItemUpdateManyDataInput: { // input type
     description?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     image?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     largeImage?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
@@ -63,6 +100,37 @@ export interface NexusGenInputs {
     price?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
+  ItemUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['ItemUpdateManyDataInput']; // ItemUpdateManyDataInput!
+    where: NexusGenInputs['ItemScalarWhereInput']; // ItemScalarWhereInput!
+  }
+  ItemUpdateManyWithoutUserInput: { // input type
+    connect?: Array<NexusGenInputs['ItemWhereUniqueInput'] | null> | null; // [ItemWhereUniqueInput]
+    create?: Array<NexusGenInputs['ItemCreateWithoutUserInput'] | null> | null; // [ItemCreateWithoutUserInput]
+    delete?: Array<NexusGenInputs['ItemWhereUniqueInput'] | null> | null; // [ItemWhereUniqueInput]
+    deleteMany?: Array<NexusGenInputs['ItemScalarWhereInput'] | null> | null; // [ItemScalarWhereInput]
+    disconnect?: Array<NexusGenInputs['ItemWhereUniqueInput'] | null> | null; // [ItemWhereUniqueInput]
+    set?: Array<NexusGenInputs['ItemWhereUniqueInput'] | null> | null; // [ItemWhereUniqueInput]
+    update?: Array<NexusGenInputs['ItemUpdateWithWhereUniqueWithoutUserInput'] | null> | null; // [ItemUpdateWithWhereUniqueWithoutUserInput]
+    updateMany?: Array<NexusGenInputs['ItemUpdateManyWithWhereNestedInput'] | null> | null; // [ItemUpdateManyWithWhereNestedInput]
+    upsert?: Array<NexusGenInputs['ItemUpsertWithWhereUniqueWithoutUserInput'] | null> | null; // [ItemUpsertWithWhereUniqueWithoutUserInput]
+  }
+  ItemUpdateWithWhereUniqueWithoutUserInput: { // input type
+    data: NexusGenInputs['ItemUpdateWithoutUserDataInput']; // ItemUpdateWithoutUserDataInput!
+    where: NexusGenInputs['ItemWhereUniqueInput']; // ItemWhereUniqueInput!
+  }
+  ItemUpdateWithoutUserDataInput: { // input type
+    description?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    image?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    largeImage?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    price?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+  }
+  ItemUpsertWithWhereUniqueWithoutUserInput: { // input type
+    create: NexusGenInputs['ItemCreateWithoutUserInput']; // ItemCreateWithoutUserInput!
+    update: NexusGenInputs['ItemUpdateWithoutUserDataInput']; // ItemUpdateWithoutUserDataInput!
+    where: NexusGenInputs['ItemWhereUniqueInput']; // ItemWhereUniqueInput!
+  }
   ItemWhereInput: { // input type
     AND?: Array<NexusGenInputs['ItemWhereInput'] | null> | null; // [ItemWhereInput]
     description?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -73,6 +141,8 @@ export interface NexusGenInputs {
     OR?: Array<NexusGenInputs['ItemWhereInput'] | null> | null; // [ItemWhereInput]
     price?: NexusGenInputs['IntFilter'] | null; // IntFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    userId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   ItemWhereUniqueInput: { // input type
     id?: number | null; // Int
@@ -160,6 +230,19 @@ export interface NexusGenInputs {
   }
   UserCreateInput: { // input type
     email: string; // String!
+    Item?: NexusGenInputs['ItemCreateManyWithoutUserInput'] | null; // ItemCreateManyWithoutUserInput
+    name: string; // String!
+    password: string; // String!
+    permissions?: NexusGenInputs['UserCreatepermissionsInput'] | null; // UserCreatepermissionsInput
+    resetToken?: string | null; // String
+    resetTokenExpiry?: number | null; // Float
+  }
+  UserCreateOneWithoutItemInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutItemInput'] | null; // UserCreateWithoutItemInput
+  }
+  UserCreateWithoutItemInput: { // input type
+    email: string; // String!
     name: string; // String!
     password: string; // String!
     permissions?: NexusGenInputs['UserCreatepermissionsInput'] | null; // UserCreatepermissionsInput
@@ -171,6 +254,7 @@ export interface NexusGenInputs {
   }
   UserUpdateInput: { // input type
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    Item?: NexusGenInputs['ItemUpdateManyWithoutUserInput'] | null; // ItemUpdateManyWithoutUserInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     permissions?: NexusGenInputs['UserUpdatepermissionsInput'] | null; // UserUpdatepermissionsInput
@@ -185,13 +269,32 @@ export interface NexusGenInputs {
     resetToken?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     resetTokenExpiry?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
   }
+  UserUpdateOneRequiredWithoutItemInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutItemInput'] | null; // UserCreateWithoutItemInput
+    update?: NexusGenInputs['UserUpdateWithoutItemDataInput'] | null; // UserUpdateWithoutItemDataInput
+    upsert?: NexusGenInputs['UserUpsertWithoutItemInput'] | null; // UserUpsertWithoutItemInput
+  }
+  UserUpdateWithoutItemDataInput: { // input type
+    email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    permissions?: NexusGenInputs['UserUpdatepermissionsInput'] | null; // UserUpdatepermissionsInput
+    resetToken?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    resetTokenExpiry?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
+  }
   UserUpdatepermissionsInput: { // input type
     set?: Array<NexusGenEnums['Permission'] | null> | null; // [Permission]
+  }
+  UserUpsertWithoutItemInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutItemInput']; // UserCreateWithoutItemInput!
+    update: NexusGenInputs['UserUpdateWithoutItemDataInput']; // UserUpdateWithoutItemDataInput!
   }
   UserWhereInput: { // input type
     AND?: Array<NexusGenInputs['UserWhereInput'] | null> | null; // [UserWhereInput]
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    Item?: NexusGenInputs['ItemListRelationFilter'] | null; // ItemListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: Array<NexusGenInputs['UserWhereInput'] | null> | null; // [UserWhereInput]
     OR?: Array<NexusGenInputs['UserWhereInput'] | null> | null; // [UserWhereInput]
@@ -229,6 +332,7 @@ export interface NexusGenRootTypes {
     largeImage?: string | null; // String
     price: number; // Int!
     title: string; // String!
+    userId: number; // Int!
   }
   Mutation: {};
   Query: {};
@@ -248,8 +352,18 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   IntFieldUpdateOperationsInput: NexusGenInputs['IntFieldUpdateOperationsInput'];
   IntFilter: NexusGenInputs['IntFilter'];
   ItemCreateInput: NexusGenInputs['ItemCreateInput'];
+  ItemCreateManyWithoutUserInput: NexusGenInputs['ItemCreateManyWithoutUserInput'];
+  ItemCreateWithoutUserInput: NexusGenInputs['ItemCreateWithoutUserInput'];
+  ItemListRelationFilter: NexusGenInputs['ItemListRelationFilter'];
+  ItemScalarWhereInput: NexusGenInputs['ItemScalarWhereInput'];
   ItemUpdateInput: NexusGenInputs['ItemUpdateInput'];
+  ItemUpdateManyDataInput: NexusGenInputs['ItemUpdateManyDataInput'];
   ItemUpdateManyMutationInput: NexusGenInputs['ItemUpdateManyMutationInput'];
+  ItemUpdateManyWithWhereNestedInput: NexusGenInputs['ItemUpdateManyWithWhereNestedInput'];
+  ItemUpdateManyWithoutUserInput: NexusGenInputs['ItemUpdateManyWithoutUserInput'];
+  ItemUpdateWithWhereUniqueWithoutUserInput: NexusGenInputs['ItemUpdateWithWhereUniqueWithoutUserInput'];
+  ItemUpdateWithoutUserDataInput: NexusGenInputs['ItemUpdateWithoutUserDataInput'];
+  ItemUpsertWithWhereUniqueWithoutUserInput: NexusGenInputs['ItemUpsertWithWhereUniqueWithoutUserInput'];
   ItemWhereInput: NexusGenInputs['ItemWhereInput'];
   ItemWhereUniqueInput: NexusGenInputs['ItemWhereUniqueInput'];
   NestedFloatNullableFilter: NexusGenInputs['NestedFloatNullableFilter'];
@@ -262,10 +376,15 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   StringFilter: NexusGenInputs['StringFilter'];
   StringNullableFilter: NexusGenInputs['StringNullableFilter'];
   UserCreateInput: NexusGenInputs['UserCreateInput'];
+  UserCreateOneWithoutItemInput: NexusGenInputs['UserCreateOneWithoutItemInput'];
+  UserCreateWithoutItemInput: NexusGenInputs['UserCreateWithoutItemInput'];
   UserCreatepermissionsInput: NexusGenInputs['UserCreatepermissionsInput'];
   UserUpdateInput: NexusGenInputs['UserUpdateInput'];
   UserUpdateManyMutationInput: NexusGenInputs['UserUpdateManyMutationInput'];
+  UserUpdateOneRequiredWithoutItemInput: NexusGenInputs['UserUpdateOneRequiredWithoutItemInput'];
+  UserUpdateWithoutItemDataInput: NexusGenInputs['UserUpdateWithoutItemDataInput'];
   UserUpdatepermissionsInput: NexusGenInputs['UserUpdatepermissionsInput'];
+  UserUpsertWithoutItemInput: NexusGenInputs['UserUpsertWithoutItemInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
   Permission: NexusGenEnums['Permission'];
@@ -287,6 +406,8 @@ export interface NexusGenFieldTypes {
     largeImage: string | null; // String
     price: number; // Int!
     title: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+    userId: number; // Int!
   }
   Mutation: { // field return type
     createOneItem: NexusGenRootTypes['Item']; // Item!
@@ -311,6 +432,7 @@ export interface NexusGenFieldTypes {
   User: { // field return type
     email: string; // String!
     id: number; // Int!
+    Item: NexusGenRootTypes['Item'][]; // [Item!]!
     name: string; // String!
     password: string; // String!
     permissions: NexusGenEnums['Permission'][]; // [Permission!]!
@@ -386,6 +508,14 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
     }
   }
+  User: {
+    Item: { // args
+      after?: NexusGenInputs['ItemWhereUniqueInput'] | null; // ItemWhereUniqueInput
+      before?: NexusGenInputs['ItemWhereUniqueInput'] | null; // ItemWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -395,7 +525,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "BatchPayload" | "Item" | "Mutation" | "Query" | "User";
 
-export type NexusGenInputNames = "FloatNullableFilter" | "IntFieldUpdateOperationsInput" | "IntFilter" | "ItemCreateInput" | "ItemUpdateInput" | "ItemUpdateManyMutationInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NestedFloatNullableFilter" | "NestedIntFilter" | "NestedStringFilter" | "NestedStringNullableFilter" | "NullableFloatFieldUpdateOperationsInput" | "NullableStringFieldUpdateOperationsInput" | "StringFieldUpdateOperationsInput" | "StringFilter" | "StringNullableFilter" | "UserCreateInput" | "UserCreatepermissionsInput" | "UserUpdateInput" | "UserUpdateManyMutationInput" | "UserUpdatepermissionsInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "FloatNullableFilter" | "IntFieldUpdateOperationsInput" | "IntFilter" | "ItemCreateInput" | "ItemCreateManyWithoutUserInput" | "ItemCreateWithoutUserInput" | "ItemListRelationFilter" | "ItemScalarWhereInput" | "ItemUpdateInput" | "ItemUpdateManyDataInput" | "ItemUpdateManyMutationInput" | "ItemUpdateManyWithWhereNestedInput" | "ItemUpdateManyWithoutUserInput" | "ItemUpdateWithWhereUniqueWithoutUserInput" | "ItemUpdateWithoutUserDataInput" | "ItemUpsertWithWhereUniqueWithoutUserInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NestedFloatNullableFilter" | "NestedIntFilter" | "NestedStringFilter" | "NestedStringNullableFilter" | "NullableFloatFieldUpdateOperationsInput" | "NullableStringFieldUpdateOperationsInput" | "StringFieldUpdateOperationsInput" | "StringFilter" | "StringNullableFilter" | "UserCreateInput" | "UserCreateOneWithoutItemInput" | "UserCreateWithoutItemInput" | "UserCreatepermissionsInput" | "UserUpdateInput" | "UserUpdateManyMutationInput" | "UserUpdateOneRequiredWithoutItemInput" | "UserUpdateWithoutItemDataInput" | "UserUpdatepermissionsInput" | "UserUpsertWithoutItemInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
 export type NexusGenEnumNames = "Permission";
 

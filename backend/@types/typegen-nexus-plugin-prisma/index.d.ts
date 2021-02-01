@@ -22,16 +22,19 @@ interface PrismaModels {
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions' | 'Item'
       ordering: 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions'
     }
     items: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price'
-      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'user' | 'userId'
+      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'userId'
     }
   },
   User: {
-
+    Item: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'user' | 'userId'
+      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'userId'
+    }
   }
   Item: {
 
@@ -68,6 +71,7 @@ interface NexusPrismaOutputs {
     resetToken: 'String'
     resetTokenExpiry: 'Float'
     permissions: 'Permission'
+    Item: 'Item'
   }
   Item: {
     id: 'Int'
@@ -76,6 +80,8 @@ interface NexusPrismaOutputs {
     image: 'String'
     largeImage: 'String'
     price: 'Int'
+    user: 'User'
+    userId: 'Int'
   }
 }
 

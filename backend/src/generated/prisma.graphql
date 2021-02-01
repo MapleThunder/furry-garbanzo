@@ -39,6 +39,8 @@ type Item {
   largeImage: String
   price: Int!
   title: String!
+  user: User!
+  userId: Int!
 }
 
 input ItemCreateInput {
@@ -47,9 +49,51 @@ input ItemCreateInput {
   largeImage: String
   price: Int!
   title: String!
+  user: UserCreateOneWithoutItemInput!
+}
+
+input ItemCreateManyWithoutUserInput {
+  connect: [ItemWhereUniqueInput]
+  create: [ItemCreateWithoutUserInput]
+}
+
+input ItemCreateWithoutUserInput {
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+  title: String!
+}
+
+input ItemListRelationFilter {
+  every: ItemWhereInput
+  none: ItemWhereInput
+  some: ItemWhereInput
+}
+
+input ItemScalarWhereInput {
+  AND: [ItemScalarWhereInput]
+  description: StringFilter
+  id: IntFilter
+  image: StringNullableFilter
+  largeImage: StringNullableFilter
+  NOT: [ItemScalarWhereInput]
+  OR: [ItemScalarWhereInput]
+  price: IntFilter
+  title: StringFilter
+  userId: IntFilter
 }
 
 input ItemUpdateInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutItemInput
+}
+
+input ItemUpdateManyDataInput {
   description: StringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   largeImage: NullableStringFieldUpdateOperationsInput
@@ -65,6 +109,42 @@ input ItemUpdateManyMutationInput {
   title: StringFieldUpdateOperationsInput
 }
 
+input ItemUpdateManyWithoutUserInput {
+  connect: [ItemWhereUniqueInput]
+  create: [ItemCreateWithoutUserInput]
+  delete: [ItemWhereUniqueInput]
+  deleteMany: [ItemScalarWhereInput]
+  disconnect: [ItemWhereUniqueInput]
+  set: [ItemWhereUniqueInput]
+  update: [ItemUpdateWithWhereUniqueWithoutUserInput]
+  updateMany: [ItemUpdateManyWithWhereNestedInput]
+  upsert: [ItemUpsertWithWhereUniqueWithoutUserInput]
+}
+
+input ItemUpdateManyWithWhereNestedInput {
+  data: ItemUpdateManyDataInput!
+  where: ItemScalarWhereInput!
+}
+
+input ItemUpdateWithoutUserDataInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input ItemUpdateWithWhereUniqueWithoutUserInput {
+  data: ItemUpdateWithoutUserDataInput!
+  where: ItemWhereUniqueInput!
+}
+
+input ItemUpsertWithWhereUniqueWithoutUserInput {
+  create: ItemCreateWithoutUserInput!
+  update: ItemUpdateWithoutUserDataInput!
+  where: ItemWhereUniqueInput!
+}
+
 input ItemWhereInput {
   AND: [ItemWhereInput]
   description: StringFilter
@@ -75,6 +155,8 @@ input ItemWhereInput {
   OR: [ItemWhereInput]
   price: IntFilter
   title: StringFilter
+  user: UserWhereInput
+  userId: IntFilter
 }
 
 input ItemWhereUniqueInput {
@@ -205,6 +287,7 @@ input StringNullableFilter {
 type User {
   email: String!
   id: Int!
+  Item(after: ItemWhereUniqueInput, before: ItemWhereUniqueInput, first: Int, last: Int): [Item!]!
   name: String!
   password: String!
   permissions: [Permission!]!
@@ -214,6 +297,7 @@ type User {
 
 input UserCreateInput {
   email: String!
+  Item: ItemCreateManyWithoutUserInput
   name: String!
   password: String!
   permissions: UserCreatepermissionsInput
@@ -221,12 +305,27 @@ input UserCreateInput {
   resetTokenExpiry: Float
 }
 
+input UserCreateOneWithoutItemInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutItemInput
+}
+
 input UserCreatepermissionsInput {
   set: [Permission]
 }
 
+input UserCreateWithoutItemInput {
+  email: String!
+  name: String!
+  password: String!
+  permissions: UserCreatepermissionsInput
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
 input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
+  Item: ItemUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   permissions: UserUpdatepermissionsInput
@@ -243,14 +342,36 @@ input UserUpdateManyMutationInput {
   resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
 }
 
+input UserUpdateOneRequiredWithoutItemInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutItemInput
+  update: UserUpdateWithoutItemDataInput
+  upsert: UserUpsertWithoutItemInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission]
+}
+
+input UserUpdateWithoutItemDataInput {
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  resetToken: NullableStringFieldUpdateOperationsInput
+  resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
+}
+
+input UserUpsertWithoutItemInput {
+  create: UserCreateWithoutItemInput!
+  update: UserUpdateWithoutItemDataInput!
 }
 
 input UserWhereInput {
   AND: [UserWhereInput]
   email: StringFilter
   id: IntFilter
+  Item: ItemListRelationFilter
   name: StringFilter
   NOT: [UserWhereInput]
   OR: [UserWhereInput]
