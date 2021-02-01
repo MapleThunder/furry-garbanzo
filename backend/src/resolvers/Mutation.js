@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../mail");
+const { isLoggedIn, hasPermission } = require("../utils");
 
 const Mutations = {
   async createItem(parent, args, context, info) {
-    // TODO: Check if they are logged in
-    if (!context.request.userId) {
-      throw new Error("You must be logged in to do that.");
-    }
+    // 1. Check if they are logged in
+    isLoggedIn(context);
+
     const item = await context.db.item.create(
       {
         data: {
@@ -42,9 +42,18 @@ const Mutations = {
   async deleteItem(parent, args, context, info) {
     const where = { id: parseFloat(args.id) };
     // 1. Find the item
-    const item = await context.db.item.findOne({ where }, `{id title}`);
+    const item = await context.db.item.findOne(
+      { where },
+      `{id title user { id }}`
+    );
     // 2. Check if they own that item, or have permissions
-    // TODO:
+    const ownsItem = item.userId === context.request.userId;
+    const hasPermissions = context.request.user.permissions.some((permission) =>
+      ["ADMIN", "ITEM_DELETE"].includes(permission)
+    );
+    if (!ownsItem && !hasPermissions) {
+      throw new Error("You don't have permissions");
+    }
     // 3. Delete it !
     return context.db.item.delete({ where }, info);
   },
@@ -171,6 +180,28 @@ const Mutations = {
     });
     // 8. Return new user
     return updatedUser;
+  },
+  async updatePermissions(parent, args, context, info) {
+    // 1. Check if they are logged in
+    isLoggedIn(context);
+    // 2. Query the current user
+    // const user = context.request.user;
+    // 3. Check if they have permissions to do this
+    hasPermission(context.request.user, ["ADMIN", "PERMISSION_UPDATE"]);
+    // 4. Update the permission
+    return context.db.user.update(
+      {
+        data: {
+          permissions: {
+            set: args.permissions,
+          },
+        },
+        where: {
+          id: parseFloat(args.userId),
+        },
+      },
+      info
+    );
   },
 };
 

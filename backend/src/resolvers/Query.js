@@ -1,4 +1,4 @@
-const { hasPermission } = require("../utils");
+const { hasPermission, isLoggedIn } = require("../utils");
 
 const Query = {
   async items(parent, args, context, info) {
@@ -7,8 +7,6 @@ const Query = {
   },
   async item(parent, args, context, info) {
     const item = context.db.item.findOne(args);
-    // console.log(args);
-
     return item;
   },
   async itemCount(parent, args, context, info) {
@@ -28,13 +26,16 @@ const Query = {
   },
   async users(parent, args, context, info) {
     // 1. Check if they are logged in
-    if (!context.request.userId) {
-      throw new Error("You must be logged in.");
-    }
+    isLoggedIn(context);
     // 2.  Check if the user has permissions to query all users
     hasPermission(context.request.user, ["ADMIN", "PERMISSION_UPDATE"]);
     // 3. If they do, query all the users
-    return context.db.user.findMany({}, info);
+    return context.db.user.findMany(
+      {
+        orderBy: [{ id: "asc" }],
+      },
+      info
+    );
   },
 };
 
