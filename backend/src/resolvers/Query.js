@@ -12,6 +12,18 @@ const Query = {
   async itemCount(parent, args, context, info) {
     return await context.db.item.count(args);
   },
+  async me(parent, args, context, info) {
+    // Check if there is a current user ID
+    if (!context.request.userId) {
+      return null;
+    }
+    return context.db.user.findOne(
+      {
+        where: { id: context.request.userId },
+      },
+      info
+    );
+  },
 };
 
 module.exports = Query;
