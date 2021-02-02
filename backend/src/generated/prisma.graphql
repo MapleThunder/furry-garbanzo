@@ -6,6 +6,148 @@ type BatchPayload {
   count: Int!
 }
 
+type CartItem {
+  id: Int!
+  Item: Item
+  itemId: Int
+  quantity: Int!
+  User: User!
+  userId: Int!
+}
+
+input CartItemCreateInput {
+  Item: ItemCreateOneWithoutCartInput
+  quantity: Int
+  User: UserCreateOneWithoutCartInput!
+}
+
+input CartItemCreateManyWithoutItemInput {
+  connect: [CartItemWhereUniqueInput]
+  create: [CartItemCreateWithoutItemInput]
+}
+
+input CartItemCreateManyWithoutUserInput {
+  connect: [CartItemWhereUniqueInput]
+  create: [CartItemCreateWithoutUserInput]
+}
+
+input CartItemCreateWithoutItemInput {
+  quantity: Int
+  User: UserCreateOneWithoutCartInput!
+}
+
+input CartItemCreateWithoutUserInput {
+  Item: ItemCreateOneWithoutCartInput
+  quantity: Int
+}
+
+input CartItemListRelationFilter {
+  every: CartItemWhereInput
+  none: CartItemWhereInput
+  some: CartItemWhereInput
+}
+
+input CartItemScalarWhereInput {
+  AND: [CartItemScalarWhereInput]
+  id: IntFilter
+  itemId: IntNullableFilter
+  NOT: [CartItemScalarWhereInput]
+  OR: [CartItemScalarWhereInput]
+  quantity: IntFilter
+  userId: IntFilter
+}
+
+input CartItemUpdateInput {
+  Item: ItemUpdateOneWithoutCartInput
+  quantity: IntFieldUpdateOperationsInput
+  User: UserUpdateOneRequiredWithoutCartInput
+}
+
+input CartItemUpdateManyDataInput {
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input CartItemUpdateManyMutationInput {
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input CartItemUpdateManyWithoutItemInput {
+  connect: [CartItemWhereUniqueInput]
+  create: [CartItemCreateWithoutItemInput]
+  delete: [CartItemWhereUniqueInput]
+  deleteMany: [CartItemScalarWhereInput]
+  disconnect: [CartItemWhereUniqueInput]
+  set: [CartItemWhereUniqueInput]
+  update: [CartItemUpdateWithWhereUniqueWithoutItemInput]
+  updateMany: [CartItemUpdateManyWithWhereNestedInput]
+  upsert: [CartItemUpsertWithWhereUniqueWithoutItemInput]
+}
+
+input CartItemUpdateManyWithoutUserInput {
+  connect: [CartItemWhereUniqueInput]
+  create: [CartItemCreateWithoutUserInput]
+  delete: [CartItemWhereUniqueInput]
+  deleteMany: [CartItemScalarWhereInput]
+  disconnect: [CartItemWhereUniqueInput]
+  set: [CartItemWhereUniqueInput]
+  update: [CartItemUpdateWithWhereUniqueWithoutUserInput]
+  updateMany: [CartItemUpdateManyWithWhereNestedInput]
+  upsert: [CartItemUpsertWithWhereUniqueWithoutUserInput]
+}
+
+input CartItemUpdateManyWithWhereNestedInput {
+  data: CartItemUpdateManyDataInput!
+  where: CartItemScalarWhereInput!
+}
+
+input CartItemUpdateWithoutItemDataInput {
+  quantity: IntFieldUpdateOperationsInput
+  User: UserUpdateOneRequiredWithoutCartInput
+}
+
+input CartItemUpdateWithoutUserDataInput {
+  Item: ItemUpdateOneWithoutCartInput
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input CartItemUpdateWithWhereUniqueWithoutItemInput {
+  data: CartItemUpdateWithoutItemDataInput!
+  where: CartItemWhereUniqueInput!
+}
+
+input CartItemUpdateWithWhereUniqueWithoutUserInput {
+  data: CartItemUpdateWithoutUserDataInput!
+  where: CartItemWhereUniqueInput!
+}
+
+input CartItemUpsertWithWhereUniqueWithoutItemInput {
+  create: CartItemCreateWithoutItemInput!
+  update: CartItemUpdateWithoutItemDataInput!
+  where: CartItemWhereUniqueInput!
+}
+
+input CartItemUpsertWithWhereUniqueWithoutUserInput {
+  create: CartItemCreateWithoutUserInput!
+  update: CartItemUpdateWithoutUserDataInput!
+  where: CartItemWhereUniqueInput!
+}
+
+input CartItemWhereInput {
+  AND: [CartItemWhereInput]
+  id: IntFilter
+  Item: ItemWhereInput
+  itemId: IntNullableFilter
+  NOT: [CartItemWhereInput]
+  OR: [CartItemWhereInput]
+  quantity: IntFilter
+  User: UserWhereInput
+  userId: IntFilter
+}
+
+input CartItemWhereUniqueInput {
+  id: Int
+}
+
 input FloatNullableFilter {
   equals: Float
   gt: Float
@@ -32,7 +174,19 @@ input IntFilter {
   notIn: [Int]
 }
 
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int]
+}
+
 type Item {
+  Cart(after: CartItemWhereUniqueInput, before: CartItemWhereUniqueInput, first: Int, last: Int): [CartItem!]!
   description: String!
   id: Int!
   image: String
@@ -44,6 +198,7 @@ type Item {
 }
 
 input ItemCreateInput {
+  Cart: CartItemCreateManyWithoutItemInput
   description: String!
   image: String
   largeImage: String
@@ -57,7 +212,22 @@ input ItemCreateManyWithoutUserInput {
   create: [ItemCreateWithoutUserInput]
 }
 
+input ItemCreateOneWithoutCartInput {
+  connect: ItemWhereUniqueInput
+  create: ItemCreateWithoutCartInput
+}
+
+input ItemCreateWithoutCartInput {
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+  title: String!
+  user: UserCreateOneWithoutItemInput!
+}
+
 input ItemCreateWithoutUserInput {
+  Cart: CartItemCreateManyWithoutItemInput
   description: String!
   image: String
   largeImage: String
@@ -85,6 +255,7 @@ input ItemScalarWhereInput {
 }
 
 input ItemUpdateInput {
+  Cart: CartItemUpdateManyWithoutItemInput
   description: StringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   largeImage: NullableStringFieldUpdateOperationsInput
@@ -126,7 +297,26 @@ input ItemUpdateManyWithWhereNestedInput {
   where: ItemScalarWhereInput!
 }
 
+input ItemUpdateOneWithoutCartInput {
+  connect: ItemWhereUniqueInput
+  create: ItemCreateWithoutCartInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ItemUpdateWithoutCartDataInput
+  upsert: ItemUpsertWithoutCartInput
+}
+
+input ItemUpdateWithoutCartDataInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutItemInput
+}
+
 input ItemUpdateWithoutUserDataInput {
+  Cart: CartItemUpdateManyWithoutItemInput
   description: StringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   largeImage: NullableStringFieldUpdateOperationsInput
@@ -139,6 +329,11 @@ input ItemUpdateWithWhereUniqueWithoutUserInput {
   where: ItemWhereUniqueInput!
 }
 
+input ItemUpsertWithoutCartInput {
+  create: ItemCreateWithoutCartInput!
+  update: ItemUpdateWithoutCartDataInput!
+}
+
 input ItemUpsertWithWhereUniqueWithoutUserInput {
   create: ItemCreateWithoutUserInput!
   update: ItemUpdateWithoutUserDataInput!
@@ -147,6 +342,7 @@ input ItemUpsertWithWhereUniqueWithoutUserInput {
 
 input ItemWhereInput {
   AND: [ItemWhereInput]
+  Cart: CartItemListRelationFilter
   description: StringFilter
   id: IntFilter
   image: StringNullableFilter
@@ -164,16 +360,22 @@ input ItemWhereUniqueInput {
 }
 
 type Mutation {
+  createOneCartItem(data: CartItemCreateInput!): CartItem!
   createOneItem(data: ItemCreateInput!): Item!
   createOneUser(data: UserCreateInput!): User!
+  deleteManyCartItem(where: CartItemWhereInput): BatchPayload!
   deleteManyItem(where: ItemWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
+  deleteOneCartItem(where: CartItemWhereUniqueInput!): CartItem
   deleteOneItem(where: ItemWhereUniqueInput!): Item
   deleteOneUser(where: UserWhereUniqueInput!): User
+  updateManyCartItem(data: CartItemUpdateManyMutationInput!, where: CartItemWhereInput): BatchPayload!
   updateManyItem(data: ItemUpdateManyMutationInput!, where: ItemWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateOneCartItem(data: CartItemUpdateInput!, where: CartItemWhereUniqueInput!): CartItem
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  upsertOneCartItem(create: CartItemCreateInput!, update: CartItemUpdateInput!, where: CartItemWhereUniqueInput!): CartItem!
   upsertOneItem(create: ItemCreateInput!, update: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -197,6 +399,17 @@ input NestedIntFilter {
   lt: Int
   lte: Int
   not: NestedIntFilter
+  notIn: [Int]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
   notIn: [Int]
 }
 
@@ -246,6 +459,8 @@ enum Permission {
 }
 
 type Query {
+  cartItem(where: CartItemWhereUniqueInput!): CartItem
+  cartItems(after: CartItemWhereUniqueInput, before: CartItemWhereUniqueInput, first: Int, last: Int): [CartItem!]!
   item(where: ItemWhereUniqueInput!): Item
   items(after: ItemWhereUniqueInput, before: ItemWhereUniqueInput, first: Int, last: Int): [Item!]!
   user(where: UserWhereUniqueInput!): User
@@ -285,6 +500,7 @@ input StringNullableFilter {
 }
 
 type User {
+  Cart(after: CartItemWhereUniqueInput, before: CartItemWhereUniqueInput, first: Int, last: Int): [CartItem!]!
   email: String!
   id: Int!
   Item(after: ItemWhereUniqueInput, before: ItemWhereUniqueInput, first: Int, last: Int): [Item!]!
@@ -296,6 +512,7 @@ type User {
 }
 
 input UserCreateInput {
+  Cart: CartItemCreateManyWithoutUserInput
   email: String!
   Item: ItemCreateManyWithoutUserInput
   name: String!
@@ -303,6 +520,11 @@ input UserCreateInput {
   permissions: UserCreatepermissionsInput
   resetToken: String
   resetTokenExpiry: Float
+}
+
+input UserCreateOneWithoutCartInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCartInput
 }
 
 input UserCreateOneWithoutItemInput {
@@ -314,7 +536,18 @@ input UserCreatepermissionsInput {
   set: [Permission]
 }
 
+input UserCreateWithoutCartInput {
+  email: String!
+  Item: ItemCreateManyWithoutUserInput
+  name: String!
+  password: String!
+  permissions: UserCreatepermissionsInput
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
 input UserCreateWithoutItemInput {
+  Cart: CartItemCreateManyWithoutUserInput
   email: String!
   name: String!
   password: String!
@@ -324,6 +557,7 @@ input UserCreateWithoutItemInput {
 }
 
 input UserUpdateInput {
+  Cart: CartItemUpdateManyWithoutUserInput
   email: StringFieldUpdateOperationsInput
   Item: ItemUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
@@ -342,6 +576,13 @@ input UserUpdateManyMutationInput {
   resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
 }
 
+input UserUpdateOneRequiredWithoutCartInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCartInput
+  update: UserUpdateWithoutCartDataInput
+  upsert: UserUpsertWithoutCartInput
+}
+
 input UserUpdateOneRequiredWithoutItemInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutItemInput
@@ -353,13 +594,29 @@ input UserUpdatepermissionsInput {
   set: [Permission]
 }
 
+input UserUpdateWithoutCartDataInput {
+  email: StringFieldUpdateOperationsInput
+  Item: ItemUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  resetToken: NullableStringFieldUpdateOperationsInput
+  resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
+}
+
 input UserUpdateWithoutItemDataInput {
+  Cart: CartItemUpdateManyWithoutUserInput
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   permissions: UserUpdatepermissionsInput
   resetToken: NullableStringFieldUpdateOperationsInput
   resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
+}
+
+input UserUpsertWithoutCartInput {
+  create: UserCreateWithoutCartInput!
+  update: UserUpdateWithoutCartDataInput!
 }
 
 input UserUpsertWithoutItemInput {
@@ -369,6 +626,7 @@ input UserUpsertWithoutItemInput {
 
 input UserWhereInput {
   AND: [UserWhereInput]
+  Cart: CartItemListRelationFilter
   email: StringFilter
   id: IntFilter
   Item: ItemListRelationFilter

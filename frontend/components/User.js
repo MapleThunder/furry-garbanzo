@@ -3,21 +3,34 @@ import gql from "graphql-tag";
 import PropTypes from "prop-types";
 
 const CURRENT_USER_QUERY = gql`
-  query {
+  query CURRENT_USER_QUERY {
     me {
       id
       email
       name
       permissions
+      cart {
+        id
+        quantity
+        Item {
+          id
+          title
+          description
+          price
+          image
+        }
+      }
     }
   }
 `;
 
-const User = (props) => (
-  <Query {...props} query={CURRENT_USER_QUERY}>
-    {(payload) => props.children(payload)}
-  </Query>
-);
+const User = (props) => {
+  return (
+    <Query {...props} query={CURRENT_USER_QUERY}>
+      {(payload) => props.children(payload)}
+    </Query>
+  );
+};
 
 User.propTypes = {
   children: PropTypes.func.isRequired,

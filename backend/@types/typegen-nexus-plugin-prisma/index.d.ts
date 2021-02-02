@@ -16,27 +16,42 @@ type CustomScalars = 'No custom scalars are used in your Prisma Schema.'
 interface PrismaModels {
   User: Prisma.User
   Item: Prisma.Item
+  CartItem: Prisma.CartItem
 }
 
 // Prisma input types metadata
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions' | 'Item'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions' | 'Item' | 'Cart'
       ordering: 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions'
     }
     items: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'user' | 'userId'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'user' | 'userId' | 'Cart'
       ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'userId'
+    }
+    cartItems: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'quantity' | 'Item' | 'User' | 'itemId' | 'userId'
+      ordering: 'id' | 'quantity' | 'itemId' | 'userId'
     }
   },
   User: {
     Item: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'user' | 'userId'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'user' | 'userId' | 'Cart'
       ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'userId'
+    }
+    Cart: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'quantity' | 'Item' | 'User' | 'itemId' | 'userId'
+      ordering: 'id' | 'quantity' | 'itemId' | 'userId'
     }
   }
   Item: {
+    Cart: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'quantity' | 'Item' | 'User' | 'itemId' | 'userId'
+      ordering: 'id' | 'quantity' | 'itemId' | 'userId'
+    }
+  }
+  CartItem: {
 
   }
 }
@@ -48,6 +63,8 @@ interface NexusPrismaOutputs {
     users: 'User'
     item: 'Item'
     items: 'Item'
+    cartItem: 'CartItem'
+    cartItems: 'CartItem'
   },
   Mutation: {
     createOneUser: 'User'
@@ -62,6 +79,12 @@ interface NexusPrismaOutputs {
     deleteOneItem: 'Item'
     deleteManyItem: 'BatchPayload'
     upsertOneItem: 'Item'
+    createOneCartItem: 'CartItem'
+    updateOneCartItem: 'CartItem'
+    updateManyCartItem: 'BatchPayload'
+    deleteOneCartItem: 'CartItem'
+    deleteManyCartItem: 'BatchPayload'
+    upsertOneCartItem: 'CartItem'
   },
   User: {
     id: 'Int'
@@ -72,6 +95,7 @@ interface NexusPrismaOutputs {
     resetTokenExpiry: 'Float'
     permissions: 'Permission'
     Item: 'Item'
+    Cart: 'CartItem'
   }
   Item: {
     id: 'Int'
@@ -82,6 +106,15 @@ interface NexusPrismaOutputs {
     price: 'Int'
     user: 'User'
     userId: 'Int'
+    Cart: 'CartItem'
+  }
+  CartItem: {
+    id: 'Int'
+    quantity: 'Int'
+    Item: 'Item'
+    User: 'User'
+    itemId: 'Int'
+    userId: 'Int'
   }
 }
 
@@ -89,6 +122,7 @@ interface NexusPrismaOutputs {
 interface NexusPrismaMethods {
   User: Typegen.NexusPrismaFields<'User'>
   Item: Typegen.NexusPrismaFields<'Item'>
+  CartItem: Typegen.NexusPrismaFields<'CartItem'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>
 }

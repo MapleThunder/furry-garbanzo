@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://react:react@localhost:5432/sick_fits?schema=public"
+  url = "***"
 }
 
 enum Permission {

@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://react:react@localhost:5432/sick_fits?schema=public"
+  url = "***"
 }
 
 enum Permission {
@@ -41,10 +41,10 @@ model Item {
 }
 
 model CartItem {
-  id       Int   @id @default(autoincrement())
-  quantity Int   @default(value: 1)
-  Item     Item? @relation(fields: [itemId], references: [id])
-  User     User  @relation(fields: [userId], references: [id])
-  itemId   Int?
+  id       Int  @id @default(autoincrement())
+  quantity Int  @default(value: 1)
+  Item     Item @relation(fields: [itemId], references: [id])
+  User     User @relation(fields: [userId], references: [id])
+  itemId   Int
   userId   Int
 }
