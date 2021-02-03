@@ -28,9 +28,9 @@ const Query = {
     },
     async users(parent, args, context, info) {
       // 1. Check if they are logged in
-      // isLoggedIn(context);
+      isLoggedIn(context);
       // 2.  Check if the user has permissions to query all users
-      // hasPermission(context.request.user, ["ADMIN", "PERMISSION_UPDATE"]);
+      hasPermission(context.request.user, ["ADMIN", "PERMISSION_UPDATE"]);
       // 3. If they do, query all the users
       return context.db.user.findMany(
         {

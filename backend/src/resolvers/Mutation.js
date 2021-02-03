@@ -4,6 +4,7 @@ const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../mail");
 const { isLoggedIn, hasPermission } = require("../utils");
+const stripe = require("../stripe");
 
 const Mutations = {
   Mutation: {
@@ -43,10 +44,16 @@ const Mutations = {
     async deleteItem(parent, args, context, info) {
       const where = { id: parseFloat(args.id) };
       // 1. Find the item
-      const item = await context.db.item.findOne(
-        { where },
-        `{id title user { id }}`
-      );
+      const item = await context.db.item.findOne({
+        where,
+        select: {
+          id: true,
+          title: true,
+          User: {
+            select: { id: true },
+          },
+        },
+      });
       // 2. Check if they own that item, or have permissions
       const ownsItem = item.userId === context.request.userId;
       const hasPermissions = context.request.user.permissions.some(
@@ -241,17 +248,20 @@ const Mutations = {
     async removeFromCart(parent, args, context, info) {
       const id = parseFloat(args.id);
       // 1. Find the cart item
-      const cartItem = await context.db.cartItem.findOne(
-        {
-          where: { id },
+      const cartItem = await context.db.cartItem.findOne({
+        where: { id },
+        select: {
+          id: true,
+          User: {
+            select: { id: true },
+          },
         },
-        `{id, User { id }}`
-      );
+      });
       if (!cartItem) {
         throw new Error("Cart item not found");
       }
       // 2. Make sure they own the cart item
-      if (cartItem.userId !== context.request.userId) {
+      if (cartItem.User.id !== context.request.userId) {
         throw new Error("You can't remove items from others' carts.");
       }
       // 3. Delete the cart item
@@ -259,7 +269,83 @@ const Mutations = {
       // 4. Return deleted cart item
       return cartItem;
     },
+    async createOrder(parent, args, context, info) {
+      // 1. Query current user and make sure they are signed in
+      const { userId } = context.request;
+
+      if (!userId) {
+        throw new Error("You must be logged in to complete the order.");
+      }
+      // console.log(info);
+      const user = await context.db.user.findOne({
+        where: { id: userId },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          Cart: {
+            select: {
+              id: true,
+              quantity: true,
+              Item: {
+                select: {
+                  id: true,
+                  title: true,
+                  price: true,
+                  description: true,
+                  image: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      // 2. Recalculate the total for the price
+      const amount = user.Cart.reduce(
+        (tally, cartItem) => tally + cartItem.Item.price * cartItem.quantity,
+        0
+      );
+      console.log(`Charging a total of ${amount}`);
+      // 3. Create the Stripe charge (turn token into $$$)
+      const charge = await stripe.charges.create({
+        amount,
+        currency: "USD",
+        source: args.token,
+      });
+      // 4. Convert CartItems to OrderItems
+      const orderItems = user.Cart.map((cartItem) => {
+        const orderItem = {
+          ...cartItem.Item,
+          quantity: cartItem.quantity,
+          user: {
+            connect: { id: userId },
+          },
+        };
+        delete orderItem.id;
+        return orderItem;
+      });
+      // 5. Create the Order
+      const order = await context.db.order.create({
+        data: {
+          user: {
+            connect: { id: userId },
+          },
+          charge: charge.id,
+          total: charge.amount,
+          items: { create: orderItems },
+        },
+      });
+
+      // 6. Clean up - clear the users cart, delete cartItems
+      const cartItemIds = user.Cart.map((cartItem) => cartItem.id);
+      await context.db.cartItem.deleteMany({
+        where: { id: { in: cartItemIds } },
+      });
+      // 7. Return the order to the client
+      return order;
+    },
   },
 };
 
 module.exports = Mutations;
+// 4242 4242 4242 4242

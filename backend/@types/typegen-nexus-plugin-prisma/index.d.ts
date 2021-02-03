@@ -17,13 +17,15 @@ interface PrismaModels {
   User: Prisma.User
   Item: Prisma.Item
   CartItem: Prisma.CartItem
+  OrderItem: Prisma.OrderItem
+  Order: Prisma.Order
 }
 
 // Prisma input types metadata
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions' | 'Item' | 'Cart'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions' | 'Item' | 'Cart' | 'OrderItem' | 'Order'
       ordering: 'id' | 'name' | 'email' | 'password' | 'resetToken' | 'resetTokenExpiry' | 'permissions'
     }
     items: {
@@ -33,6 +35,14 @@ interface NexusPrismaInputs {
     cartItems: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'quantity' | 'Item' | 'User' | 'itemId' | 'userId'
       ordering: 'id' | 'quantity' | 'itemId' | 'userId'
+    }
+    orderItems: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'user' | 'userId' | 'Order' | 'orderId'
+      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'userId' | 'orderId'
+    }
+    orders: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'items' | 'total' | 'user' | 'charge' | 'userId'
+      ordering: 'id' | 'total' | 'charge' | 'userId'
     }
   },
   User: {
@@ -44,6 +54,14 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'quantity' | 'Item' | 'User' | 'itemId' | 'userId'
       ordering: 'id' | 'quantity' | 'itemId' | 'userId'
     }
+    OrderItem: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'user' | 'userId' | 'Order' | 'orderId'
+      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'userId' | 'orderId'
+    }
+    Order: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'items' | 'total' | 'user' | 'charge' | 'userId'
+      ordering: 'id' | 'total' | 'charge' | 'userId'
+    }
   }
   Item: {
     Cart: {
@@ -53,6 +71,15 @@ interface NexusPrismaInputs {
   }
   CartItem: {
 
+  }
+  OrderItem: {
+
+  }
+  Order: {
+    items: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'user' | 'userId' | 'Order' | 'orderId'
+      ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'userId' | 'orderId'
+    }
   }
 }
 
@@ -65,6 +92,10 @@ interface NexusPrismaOutputs {
     items: 'Item'
     cartItem: 'CartItem'
     cartItems: 'CartItem'
+    orderItem: 'OrderItem'
+    orderItems: 'OrderItem'
+    order: 'Order'
+    orders: 'Order'
   },
   Mutation: {
     createOneUser: 'User'
@@ -85,6 +116,18 @@ interface NexusPrismaOutputs {
     deleteOneCartItem: 'CartItem'
     deleteManyCartItem: 'BatchPayload'
     upsertOneCartItem: 'CartItem'
+    createOneOrderItem: 'OrderItem'
+    updateOneOrderItem: 'OrderItem'
+    updateManyOrderItem: 'BatchPayload'
+    deleteOneOrderItem: 'OrderItem'
+    deleteManyOrderItem: 'BatchPayload'
+    upsertOneOrderItem: 'OrderItem'
+    createOneOrder: 'Order'
+    updateOneOrder: 'Order'
+    updateManyOrder: 'BatchPayload'
+    deleteOneOrder: 'Order'
+    deleteManyOrder: 'BatchPayload'
+    upsertOneOrder: 'Order'
   },
   User: {
     id: 'Int'
@@ -96,6 +139,8 @@ interface NexusPrismaOutputs {
     permissions: 'Permission'
     Item: 'Item'
     Cart: 'CartItem'
+    OrderItem: 'OrderItem'
+    Order: 'Order'
   }
   Item: {
     id: 'Int'
@@ -116,6 +161,27 @@ interface NexusPrismaOutputs {
     itemId: 'Int'
     userId: 'Int'
   }
+  OrderItem: {
+    id: 'Int'
+    title: 'String'
+    description: 'String'
+    image: 'String'
+    largeImage: 'String'
+    price: 'Int'
+    quantity: 'Int'
+    user: 'User'
+    userId: 'Int'
+    Order: 'Order'
+    orderId: 'Int'
+  }
+  Order: {
+    id: 'Int'
+    items: 'OrderItem'
+    total: 'Int'
+    user: 'User'
+    charge: 'String'
+    userId: 'Int'
+  }
 }
 
 // Helper to gather all methods relative to a model
@@ -123,6 +189,8 @@ interface NexusPrismaMethods {
   User: Typegen.NexusPrismaFields<'User'>
   Item: Typegen.NexusPrismaFields<'Item'>
   CartItem: Typegen.NexusPrismaFields<'CartItem'>
+  OrderItem: Typegen.NexusPrismaFields<'OrderItem'>
+  Order: Typegen.NexusPrismaFields<'Order'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>
 }

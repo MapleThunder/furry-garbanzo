@@ -362,21 +362,33 @@ input ItemWhereUniqueInput {
 type Mutation {
   createOneCartItem(data: CartItemCreateInput!): CartItem!
   createOneItem(data: ItemCreateInput!): Item!
+  createOneOrder(data: OrderCreateInput!): Order!
+  createOneOrderItem(data: OrderItemCreateInput!): OrderItem!
   createOneUser(data: UserCreateInput!): User!
   deleteManyCartItem(where: CartItemWhereInput): BatchPayload!
   deleteManyItem(where: ItemWhereInput): BatchPayload!
+  deleteManyOrder(where: OrderWhereInput): BatchPayload!
+  deleteManyOrderItem(where: OrderItemWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneCartItem(where: CartItemWhereUniqueInput!): CartItem
   deleteOneItem(where: ItemWhereUniqueInput!): Item
+  deleteOneOrder(where: OrderWhereUniqueInput!): Order
+  deleteOneOrderItem(where: OrderItemWhereUniqueInput!): OrderItem
   deleteOneUser(where: UserWhereUniqueInput!): User
   updateManyCartItem(data: CartItemUpdateManyMutationInput!, where: CartItemWhereInput): BatchPayload!
   updateManyItem(data: ItemUpdateManyMutationInput!, where: ItemWhereInput): BatchPayload!
+  updateManyOrder(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
+  updateManyOrderItem(data: OrderItemUpdateManyMutationInput!, where: OrderItemWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateOneCartItem(data: CartItemUpdateInput!, where: CartItemWhereUniqueInput!): CartItem
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
+  updateOneOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
+  updateOneOrderItem(data: OrderItemUpdateInput!, where: OrderItemWhereUniqueInput!): OrderItem
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertOneCartItem(create: CartItemCreateInput!, update: CartItemUpdateInput!, where: CartItemWhereUniqueInput!): CartItem!
   upsertOneItem(create: ItemCreateInput!, update: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item!
+  upsertOneOrder(create: OrderCreateInput!, update: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order!
+  upsertOneOrderItem(create: OrderItemCreateInput!, update: OrderItemUpdateInput!, where: OrderItemWhereUniqueInput!): OrderItem!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
@@ -449,6 +461,344 @@ input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
+type Order {
+  charge: String!
+  id: Int!
+  items(after: OrderItemWhereUniqueInput, before: OrderItemWhereUniqueInput, first: Int, last: Int): [OrderItem!]!
+  total: Int!
+  user: User!
+  userId: Int!
+}
+
+input OrderCreateInput {
+  charge: String!
+  items: OrderItemCreateManyWithoutOrderInput
+  total: Int!
+  user: UserCreateOneWithoutOrderInput!
+}
+
+input OrderCreateManyWithoutUserInput {
+  connect: [OrderWhereUniqueInput]
+  create: [OrderCreateWithoutUserInput]
+}
+
+input OrderCreateOneWithoutItemsInput {
+  connect: OrderWhereUniqueInput
+  create: OrderCreateWithoutItemsInput
+}
+
+input OrderCreateWithoutItemsInput {
+  charge: String!
+  total: Int!
+  user: UserCreateOneWithoutOrderInput!
+}
+
+input OrderCreateWithoutUserInput {
+  charge: String!
+  items: OrderItemCreateManyWithoutOrderInput
+  total: Int!
+}
+
+type OrderItem {
+  description: String!
+  id: Int!
+  image: String
+  largeImage: String
+  Order: Order
+  orderId: Int
+  price: Int!
+  quantity: Int!
+  title: String!
+  user: User!
+  userId: Int!
+}
+
+input OrderItemCreateInput {
+  description: String!
+  image: String
+  largeImage: String
+  Order: OrderCreateOneWithoutItemsInput
+  price: Int!
+  quantity: Int
+  title: String!
+  user: UserCreateOneWithoutOrderItemInput!
+}
+
+input OrderItemCreateManyWithoutOrderInput {
+  connect: [OrderItemWhereUniqueInput]
+  create: [OrderItemCreateWithoutOrderInput]
+}
+
+input OrderItemCreateManyWithoutUserInput {
+  connect: [OrderItemWhereUniqueInput]
+  create: [OrderItemCreateWithoutUserInput]
+}
+
+input OrderItemCreateWithoutOrderInput {
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+  quantity: Int
+  title: String!
+  user: UserCreateOneWithoutOrderItemInput!
+}
+
+input OrderItemCreateWithoutUserInput {
+  description: String!
+  image: String
+  largeImage: String
+  Order: OrderCreateOneWithoutItemsInput
+  price: Int!
+  quantity: Int
+  title: String!
+}
+
+input OrderItemListRelationFilter {
+  every: OrderItemWhereInput
+  none: OrderItemWhereInput
+  some: OrderItemWhereInput
+}
+
+input OrderItemScalarWhereInput {
+  AND: [OrderItemScalarWhereInput]
+  description: StringFilter
+  id: IntFilter
+  image: StringNullableFilter
+  largeImage: StringNullableFilter
+  NOT: [OrderItemScalarWhereInput]
+  OR: [OrderItemScalarWhereInput]
+  orderId: IntNullableFilter
+  price: IntFilter
+  quantity: IntFilter
+  title: StringFilter
+  userId: IntFilter
+}
+
+input OrderItemUpdateInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  Order: OrderUpdateOneWithoutItemsInput
+  price: IntFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutOrderItemInput
+}
+
+input OrderItemUpdateManyDataInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input OrderItemUpdateManyMutationInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input OrderItemUpdateManyWithoutOrderInput {
+  connect: [OrderItemWhereUniqueInput]
+  create: [OrderItemCreateWithoutOrderInput]
+  delete: [OrderItemWhereUniqueInput]
+  deleteMany: [OrderItemScalarWhereInput]
+  disconnect: [OrderItemWhereUniqueInput]
+  set: [OrderItemWhereUniqueInput]
+  update: [OrderItemUpdateWithWhereUniqueWithoutOrderInput]
+  updateMany: [OrderItemUpdateManyWithWhereNestedInput]
+  upsert: [OrderItemUpsertWithWhereUniqueWithoutOrderInput]
+}
+
+input OrderItemUpdateManyWithoutUserInput {
+  connect: [OrderItemWhereUniqueInput]
+  create: [OrderItemCreateWithoutUserInput]
+  delete: [OrderItemWhereUniqueInput]
+  deleteMany: [OrderItemScalarWhereInput]
+  disconnect: [OrderItemWhereUniqueInput]
+  set: [OrderItemWhereUniqueInput]
+  update: [OrderItemUpdateWithWhereUniqueWithoutUserInput]
+  updateMany: [OrderItemUpdateManyWithWhereNestedInput]
+  upsert: [OrderItemUpsertWithWhereUniqueWithoutUserInput]
+}
+
+input OrderItemUpdateManyWithWhereNestedInput {
+  data: OrderItemUpdateManyDataInput!
+  where: OrderItemScalarWhereInput!
+}
+
+input OrderItemUpdateWithoutOrderDataInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutOrderItemInput
+}
+
+input OrderItemUpdateWithoutUserDataInput {
+  description: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  largeImage: NullableStringFieldUpdateOperationsInput
+  Order: OrderUpdateOneWithoutItemsInput
+  price: IntFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input OrderItemUpdateWithWhereUniqueWithoutOrderInput {
+  data: OrderItemUpdateWithoutOrderDataInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemUpdateWithWhereUniqueWithoutUserInput {
+  data: OrderItemUpdateWithoutUserDataInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemUpsertWithWhereUniqueWithoutOrderInput {
+  create: OrderItemCreateWithoutOrderInput!
+  update: OrderItemUpdateWithoutOrderDataInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemUpsertWithWhereUniqueWithoutUserInput {
+  create: OrderItemCreateWithoutUserInput!
+  update: OrderItemUpdateWithoutUserDataInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemWhereInput {
+  AND: [OrderItemWhereInput]
+  description: StringFilter
+  id: IntFilter
+  image: StringNullableFilter
+  largeImage: StringNullableFilter
+  NOT: [OrderItemWhereInput]
+  OR: [OrderItemWhereInput]
+  Order: OrderWhereInput
+  orderId: IntNullableFilter
+  price: IntFilter
+  quantity: IntFilter
+  title: StringFilter
+  user: UserWhereInput
+  userId: IntFilter
+}
+
+input OrderItemWhereUniqueInput {
+  id: Int
+}
+
+input OrderListRelationFilter {
+  every: OrderWhereInput
+  none: OrderWhereInput
+  some: OrderWhereInput
+}
+
+input OrderScalarWhereInput {
+  AND: [OrderScalarWhereInput]
+  charge: StringFilter
+  id: IntFilter
+  NOT: [OrderScalarWhereInput]
+  OR: [OrderScalarWhereInput]
+  total: IntFilter
+  userId: IntFilter
+}
+
+input OrderUpdateInput {
+  charge: StringFieldUpdateOperationsInput
+  items: OrderItemUpdateManyWithoutOrderInput
+  total: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutOrderInput
+}
+
+input OrderUpdateManyDataInput {
+  charge: StringFieldUpdateOperationsInput
+  total: IntFieldUpdateOperationsInput
+}
+
+input OrderUpdateManyMutationInput {
+  charge: StringFieldUpdateOperationsInput
+  total: IntFieldUpdateOperationsInput
+}
+
+input OrderUpdateManyWithoutUserInput {
+  connect: [OrderWhereUniqueInput]
+  create: [OrderCreateWithoutUserInput]
+  delete: [OrderWhereUniqueInput]
+  deleteMany: [OrderScalarWhereInput]
+  disconnect: [OrderWhereUniqueInput]
+  set: [OrderWhereUniqueInput]
+  update: [OrderUpdateWithWhereUniqueWithoutUserInput]
+  updateMany: [OrderUpdateManyWithWhereNestedInput]
+  upsert: [OrderUpsertWithWhereUniqueWithoutUserInput]
+}
+
+input OrderUpdateManyWithWhereNestedInput {
+  data: OrderUpdateManyDataInput!
+  where: OrderScalarWhereInput!
+}
+
+input OrderUpdateOneWithoutItemsInput {
+  connect: OrderWhereUniqueInput
+  create: OrderCreateWithoutItemsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: OrderUpdateWithoutItemsDataInput
+  upsert: OrderUpsertWithoutItemsInput
+}
+
+input OrderUpdateWithoutItemsDataInput {
+  charge: StringFieldUpdateOperationsInput
+  total: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutOrderInput
+}
+
+input OrderUpdateWithoutUserDataInput {
+  charge: StringFieldUpdateOperationsInput
+  items: OrderItemUpdateManyWithoutOrderInput
+  total: IntFieldUpdateOperationsInput
+}
+
+input OrderUpdateWithWhereUniqueWithoutUserInput {
+  data: OrderUpdateWithoutUserDataInput!
+  where: OrderWhereUniqueInput!
+}
+
+input OrderUpsertWithoutItemsInput {
+  create: OrderCreateWithoutItemsInput!
+  update: OrderUpdateWithoutItemsDataInput!
+}
+
+input OrderUpsertWithWhereUniqueWithoutUserInput {
+  create: OrderCreateWithoutUserInput!
+  update: OrderUpdateWithoutUserDataInput!
+  where: OrderWhereUniqueInput!
+}
+
+input OrderWhereInput {
+  AND: [OrderWhereInput]
+  charge: StringFilter
+  id: IntFilter
+  items: OrderItemListRelationFilter
+  NOT: [OrderWhereInput]
+  OR: [OrderWhereInput]
+  total: IntFilter
+  user: UserWhereInput
+  userId: IntFilter
+}
+
+input OrderWhereUniqueInput {
+  id: Int
+}
+
 enum Permission {
   ADMIN
   ITEM_CREATE
@@ -463,6 +813,10 @@ type Query {
   cartItems(after: CartItemWhereUniqueInput, before: CartItemWhereUniqueInput, first: Int, last: Int): [CartItem!]!
   item(where: ItemWhereUniqueInput!): Item
   items(after: ItemWhereUniqueInput, before: ItemWhereUniqueInput, first: Int, last: Int): [Item!]!
+  order(where: OrderWhereUniqueInput!): Order
+  orderItem(where: OrderItemWhereUniqueInput!): OrderItem
+  orderItems(after: OrderItemWhereUniqueInput, before: OrderItemWhereUniqueInput, first: Int, last: Int): [OrderItem!]!
+  orders(after: OrderWhereUniqueInput, before: OrderWhereUniqueInput, first: Int, last: Int): [Order!]!
   user(where: UserWhereUniqueInput!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
 }
@@ -505,6 +859,8 @@ type User {
   id: Int!
   Item(after: ItemWhereUniqueInput, before: ItemWhereUniqueInput, first: Int, last: Int): [Item!]!
   name: String!
+  Order(after: OrderWhereUniqueInput, before: OrderWhereUniqueInput, first: Int, last: Int): [Order!]!
+  OrderItem(after: OrderItemWhereUniqueInput, before: OrderItemWhereUniqueInput, first: Int, last: Int): [OrderItem!]!
   password: String!
   permissions: [Permission!]!
   resetToken: String
@@ -516,6 +872,8 @@ input UserCreateInput {
   email: String!
   Item: ItemCreateManyWithoutUserInput
   name: String!
+  Order: OrderCreateManyWithoutUserInput
+  OrderItem: OrderItemCreateManyWithoutUserInput
   password: String!
   permissions: UserCreatepermissionsInput
   resetToken: String
@@ -532,6 +890,16 @@ input UserCreateOneWithoutItemInput {
   create: UserCreateWithoutItemInput
 }
 
+input UserCreateOneWithoutOrderInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutOrderInput
+}
+
+input UserCreateOneWithoutOrderItemInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutOrderItemInput
+}
+
 input UserCreatepermissionsInput {
   set: [Permission]
 }
@@ -540,6 +908,8 @@ input UserCreateWithoutCartInput {
   email: String!
   Item: ItemCreateManyWithoutUserInput
   name: String!
+  Order: OrderCreateManyWithoutUserInput
+  OrderItem: OrderItemCreateManyWithoutUserInput
   password: String!
   permissions: UserCreatepermissionsInput
   resetToken: String
@@ -550,6 +920,32 @@ input UserCreateWithoutItemInput {
   Cart: CartItemCreateManyWithoutUserInput
   email: String!
   name: String!
+  Order: OrderCreateManyWithoutUserInput
+  OrderItem: OrderItemCreateManyWithoutUserInput
+  password: String!
+  permissions: UserCreatepermissionsInput
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+input UserCreateWithoutOrderInput {
+  Cart: CartItemCreateManyWithoutUserInput
+  email: String!
+  Item: ItemCreateManyWithoutUserInput
+  name: String!
+  OrderItem: OrderItemCreateManyWithoutUserInput
+  password: String!
+  permissions: UserCreatepermissionsInput
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+input UserCreateWithoutOrderItemInput {
+  Cart: CartItemCreateManyWithoutUserInput
+  email: String!
+  Item: ItemCreateManyWithoutUserInput
+  name: String!
+  Order: OrderCreateManyWithoutUserInput
   password: String!
   permissions: UserCreatepermissionsInput
   resetToken: String
@@ -561,6 +957,8 @@ input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
   Item: ItemUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
+  Order: OrderUpdateManyWithoutUserInput
+  OrderItem: OrderItemUpdateManyWithoutUserInput
   password: StringFieldUpdateOperationsInput
   permissions: UserUpdatepermissionsInput
   resetToken: NullableStringFieldUpdateOperationsInput
@@ -590,6 +988,20 @@ input UserUpdateOneRequiredWithoutItemInput {
   upsert: UserUpsertWithoutItemInput
 }
 
+input UserUpdateOneRequiredWithoutOrderInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutOrderInput
+  update: UserUpdateWithoutOrderDataInput
+  upsert: UserUpsertWithoutOrderInput
+}
+
+input UserUpdateOneRequiredWithoutOrderItemInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutOrderItemInput
+  update: UserUpdateWithoutOrderItemDataInput
+  upsert: UserUpsertWithoutOrderItemInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission]
 }
@@ -598,6 +1010,8 @@ input UserUpdateWithoutCartDataInput {
   email: StringFieldUpdateOperationsInput
   Item: ItemUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
+  Order: OrderUpdateManyWithoutUserInput
+  OrderItem: OrderItemUpdateManyWithoutUserInput
   password: StringFieldUpdateOperationsInput
   permissions: UserUpdatepermissionsInput
   resetToken: NullableStringFieldUpdateOperationsInput
@@ -608,6 +1022,32 @@ input UserUpdateWithoutItemDataInput {
   Cart: CartItemUpdateManyWithoutUserInput
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  Order: OrderUpdateManyWithoutUserInput
+  OrderItem: OrderItemUpdateManyWithoutUserInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  resetToken: NullableStringFieldUpdateOperationsInput
+  resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutOrderDataInput {
+  Cart: CartItemUpdateManyWithoutUserInput
+  email: StringFieldUpdateOperationsInput
+  Item: ItemUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  OrderItem: OrderItemUpdateManyWithoutUserInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  resetToken: NullableStringFieldUpdateOperationsInput
+  resetTokenExpiry: NullableFloatFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutOrderItemDataInput {
+  Cart: CartItemUpdateManyWithoutUserInput
+  email: StringFieldUpdateOperationsInput
+  Item: ItemUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  Order: OrderUpdateManyWithoutUserInput
   password: StringFieldUpdateOperationsInput
   permissions: UserUpdatepermissionsInput
   resetToken: NullableStringFieldUpdateOperationsInput
@@ -624,6 +1064,16 @@ input UserUpsertWithoutItemInput {
   update: UserUpdateWithoutItemDataInput!
 }
 
+input UserUpsertWithoutOrderInput {
+  create: UserCreateWithoutOrderInput!
+  update: UserUpdateWithoutOrderDataInput!
+}
+
+input UserUpsertWithoutOrderItemInput {
+  create: UserCreateWithoutOrderItemInput!
+  update: UserUpdateWithoutOrderItemDataInput!
+}
+
 input UserWhereInput {
   AND: [UserWhereInput]
   Cart: CartItemListRelationFilter
@@ -633,6 +1083,8 @@ input UserWhereInput {
   name: StringFilter
   NOT: [UserWhereInput]
   OR: [UserWhereInput]
+  Order: OrderListRelationFilter
+  OrderItem: OrderItemListRelationFilter
   password: StringFilter
   permissions: [Permission]
   resetToken: StringNullableFilter
