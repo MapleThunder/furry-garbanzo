@@ -276,7 +276,6 @@ const Mutations = {
       if (!userId) {
         throw new Error("You must be logged in to complete the order.");
       }
-      // console.log(info);
       const user = await context.db.user.findOne({
         where: { id: userId },
         select: {
@@ -294,6 +293,7 @@ const Mutations = {
                   price: true,
                   description: true,
                   image: true,
+                  largeImage: true,
                 },
               },
             },

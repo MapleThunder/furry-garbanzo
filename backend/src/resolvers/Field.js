@@ -14,6 +14,11 @@ const FieldResolvers = {
       return context.db.user.findOne({ where: { id: parent.userId } });
     },
   },
+  Order: {
+    items: (parent, args, context, info) => {
+      return context.db.orderItem.findMany({ where: { orderId: parent.id } });
+    },
+  },
 };
 
 module.exports = FieldResolvers;
