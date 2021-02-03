@@ -19,7 +19,7 @@ export const Nav = () => (
               <a>Sell</a>
             </Link>
             <Link href="/orders">
-              <a>orders</a>
+              <a>Orders</a>
             </Link>
             <Link href="/me">
               <a>Account</a>

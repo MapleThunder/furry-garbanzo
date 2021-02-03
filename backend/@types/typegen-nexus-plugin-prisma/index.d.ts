@@ -41,8 +41,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'userId' | 'orderId'
     }
     orders: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'items' | 'total' | 'user' | 'charge' | 'userId'
-      ordering: 'id' | 'total' | 'charge' | 'userId'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'items' | 'total' | 'user' | 'charge' | 'userId' | 'createdAt' | 'updatedAt'
+      ordering: 'id' | 'total' | 'charge' | 'userId' | 'createdAt' | 'updatedAt'
     }
   },
   User: {
@@ -59,8 +59,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'title' | 'description' | 'image' | 'largeImage' | 'price' | 'quantity' | 'userId' | 'orderId'
     }
     Order: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'items' | 'total' | 'user' | 'charge' | 'userId'
-      ordering: 'id' | 'total' | 'charge' | 'userId'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'items' | 'total' | 'user' | 'charge' | 'userId' | 'createdAt' | 'updatedAt'
+      ordering: 'id' | 'total' | 'charge' | 'userId' | 'createdAt' | 'updatedAt'
     }
   }
   Item: {
@@ -181,6 +181,8 @@ interface NexusPrismaOutputs {
     user: 'User'
     charge: 'String'
     userId: 'Int'
+    createdAt: 'String'
+    updatedAt: 'String'
   }
 }
 

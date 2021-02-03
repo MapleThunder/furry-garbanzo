@@ -305,7 +305,6 @@ const Mutations = {
         (tally, cartItem) => tally + cartItem.Item.price * cartItem.quantity,
         0
       );
-      console.log(`Charging a total of ${amount}`);
       // 3. Create the Stripe charge (turn token into $$$)
       const charge = await stripe.charges.create({
         amount,
@@ -333,6 +332,8 @@ const Mutations = {
           charge: charge.id,
           total: charge.amount,
           items: { create: orderItems },
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       });
 

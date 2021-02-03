@@ -370,8 +370,10 @@ export interface NexusGenInputs {
   }
   OrderCreateInput: { // input type
     charge: string; // String!
+    createdAt: string; // String!
     items?: NexusGenInputs['OrderItemCreateManyWithoutOrderInput'] | null; // OrderItemCreateManyWithoutOrderInput
     total: number; // Int!
+    updatedAt: string; // String!
     user: NexusGenInputs['UserCreateOneWithoutOrderInput']; // UserCreateOneWithoutOrderInput!
   }
   OrderCreateManyWithoutUserInput: { // input type
@@ -384,13 +386,17 @@ export interface NexusGenInputs {
   }
   OrderCreateWithoutItemsInput: { // input type
     charge: string; // String!
+    createdAt: string; // String!
     total: number; // Int!
+    updatedAt: string; // String!
     user: NexusGenInputs['UserCreateOneWithoutOrderInput']; // UserCreateOneWithoutOrderInput!
   }
   OrderCreateWithoutUserInput: { // input type
     charge: string; // String!
+    createdAt: string; // String!
     items?: NexusGenInputs['OrderItemCreateManyWithoutOrderInput'] | null; // OrderItemCreateManyWithoutOrderInput
     total: number; // Int!
+    updatedAt: string; // String!
   }
   OrderItemCreateInput: { // input type
     description: string; // String!
@@ -562,25 +568,33 @@ export interface NexusGenInputs {
   OrderScalarWhereInput: { // input type
     AND?: Array<NexusGenInputs['OrderScalarWhereInput'] | null> | null; // [OrderScalarWhereInput]
     charge?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     NOT?: Array<NexusGenInputs['OrderScalarWhereInput'] | null> | null; // [OrderScalarWhereInput]
     OR?: Array<NexusGenInputs['OrderScalarWhereInput'] | null> | null; // [OrderScalarWhereInput]
     total?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    updatedAt?: NexusGenInputs['StringFilter'] | null; // StringFilter
     userId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   OrderUpdateInput: { // input type
     charge?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     items?: NexusGenInputs['OrderItemUpdateManyWithoutOrderInput'] | null; // OrderItemUpdateManyWithoutOrderInput
     total?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     user?: NexusGenInputs['UserUpdateOneRequiredWithoutOrderInput'] | null; // UserUpdateOneRequiredWithoutOrderInput
   }
   OrderUpdateManyDataInput: { // input type
     charge?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     total?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   OrderUpdateManyMutationInput: { // input type
     charge?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     total?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   OrderUpdateManyWithWhereNestedInput: { // input type
     data: NexusGenInputs['OrderUpdateManyDataInput']; // OrderUpdateManyDataInput!
@@ -611,13 +625,17 @@ export interface NexusGenInputs {
   }
   OrderUpdateWithoutItemsDataInput: { // input type
     charge?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     total?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     user?: NexusGenInputs['UserUpdateOneRequiredWithoutOrderInput'] | null; // UserUpdateOneRequiredWithoutOrderInput
   }
   OrderUpdateWithoutUserDataInput: { // input type
     charge?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     items?: NexusGenInputs['OrderItemUpdateManyWithoutOrderInput'] | null; // OrderItemUpdateManyWithoutOrderInput
     total?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   OrderUpsertWithWhereUniqueWithoutUserInput: { // input type
     create: NexusGenInputs['OrderCreateWithoutUserInput']; // OrderCreateWithoutUserInput!
@@ -631,11 +649,13 @@ export interface NexusGenInputs {
   OrderWhereInput: { // input type
     AND?: Array<NexusGenInputs['OrderWhereInput'] | null> | null; // [OrderWhereInput]
     charge?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     items?: NexusGenInputs['OrderItemListRelationFilter'] | null; // OrderItemListRelationFilter
     NOT?: Array<NexusGenInputs['OrderWhereInput'] | null> | null; // [OrderWhereInput]
     OR?: Array<NexusGenInputs['OrderWhereInput'] | null> | null; // [OrderWhereInput]
     total?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    updatedAt?: NexusGenInputs['StringFilter'] | null; // StringFilter
     user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     userId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
@@ -909,8 +929,10 @@ export interface NexusGenRootTypes {
   Mutation: {};
   Order: { // root type
     charge: string; // String!
+    createdAt: string; // String!
     id: number; // Int!
     total: number; // Int!
+    updatedAt: string; // String!
     userId: number; // Int!
   }
   OrderItem: { // root type
@@ -1125,9 +1147,11 @@ export interface NexusGenFieldTypes {
   }
   Order: { // field return type
     charge: string; // String!
+    createdAt: string; // String!
     id: number; // Int!
     items: NexusGenRootTypes['OrderItem'][]; // [OrderItem!]!
     total: number; // Int!
+    updatedAt: string; // String!
     user: NexusGenRootTypes['User']; // User!
     userId: number; // Int!
   }

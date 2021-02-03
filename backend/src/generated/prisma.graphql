@@ -463,17 +463,21 @@ input NullableStringFieldUpdateOperationsInput {
 
 type Order {
   charge: String!
+  createdAt: String!
   id: Int!
   items(after: OrderItemWhereUniqueInput, before: OrderItemWhereUniqueInput, first: Int, last: Int): [OrderItem!]!
   total: Int!
+  updatedAt: String!
   user: User!
   userId: Int!
 }
 
 input OrderCreateInput {
   charge: String!
+  createdAt: String!
   items: OrderItemCreateManyWithoutOrderInput
   total: Int!
+  updatedAt: String!
   user: UserCreateOneWithoutOrderInput!
 }
 
@@ -489,14 +493,18 @@ input OrderCreateOneWithoutItemsInput {
 
 input OrderCreateWithoutItemsInput {
   charge: String!
+  createdAt: String!
   total: Int!
+  updatedAt: String!
   user: UserCreateOneWithoutOrderInput!
 }
 
 input OrderCreateWithoutUserInput {
   charge: String!
+  createdAt: String!
   items: OrderItemCreateManyWithoutOrderInput
   total: Int!
+  updatedAt: String!
 }
 
 type OrderItem {
@@ -705,28 +713,36 @@ input OrderListRelationFilter {
 input OrderScalarWhereInput {
   AND: [OrderScalarWhereInput]
   charge: StringFilter
+  createdAt: StringFilter
   id: IntFilter
   NOT: [OrderScalarWhereInput]
   OR: [OrderScalarWhereInput]
   total: IntFilter
+  updatedAt: StringFilter
   userId: IntFilter
 }
 
 input OrderUpdateInput {
   charge: StringFieldUpdateOperationsInput
+  createdAt: StringFieldUpdateOperationsInput
   items: OrderItemUpdateManyWithoutOrderInput
   total: IntFieldUpdateOperationsInput
+  updatedAt: StringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutOrderInput
 }
 
 input OrderUpdateManyDataInput {
   charge: StringFieldUpdateOperationsInput
+  createdAt: StringFieldUpdateOperationsInput
   total: IntFieldUpdateOperationsInput
+  updatedAt: StringFieldUpdateOperationsInput
 }
 
 input OrderUpdateManyMutationInput {
   charge: StringFieldUpdateOperationsInput
+  createdAt: StringFieldUpdateOperationsInput
   total: IntFieldUpdateOperationsInput
+  updatedAt: StringFieldUpdateOperationsInput
 }
 
 input OrderUpdateManyWithoutUserInput {
@@ -757,14 +773,18 @@ input OrderUpdateOneWithoutItemsInput {
 
 input OrderUpdateWithoutItemsDataInput {
   charge: StringFieldUpdateOperationsInput
+  createdAt: StringFieldUpdateOperationsInput
   total: IntFieldUpdateOperationsInput
+  updatedAt: StringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutOrderInput
 }
 
 input OrderUpdateWithoutUserDataInput {
   charge: StringFieldUpdateOperationsInput
+  createdAt: StringFieldUpdateOperationsInput
   items: OrderItemUpdateManyWithoutOrderInput
   total: IntFieldUpdateOperationsInput
+  updatedAt: StringFieldUpdateOperationsInput
 }
 
 input OrderUpdateWithWhereUniqueWithoutUserInput {
@@ -786,11 +806,13 @@ input OrderUpsertWithWhereUniqueWithoutUserInput {
 input OrderWhereInput {
   AND: [OrderWhereInput]
   charge: StringFilter
+  createdAt: StringFilter
   id: IntFilter
   items: OrderItemListRelationFilter
   NOT: [OrderWhereInput]
   OR: [OrderWhereInput]
   total: IntFilter
+  updatedAt: StringFilter
   user: UserWhereInput
   userId: IntFilter
 }

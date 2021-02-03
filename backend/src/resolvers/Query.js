@@ -1,3 +1,4 @@
+const Orders = require("stripe/lib/resources/Orders");
 const { hasPermission, isLoggedIn } = require("../utils");
 
 const Query = {
@@ -38,6 +39,66 @@ const Query = {
         },
         info
       );
+    },
+    async order(parent, args, context, info) {
+      // 1. Make sure they are logged in
+      isLoggedIn(context);
+      // 2. Query the current order
+      const order = await context.db.order.findOne({
+        where: { id: parseFloat(args.id) },
+        select: {
+          id: true,
+          charge: true,
+          total: true,
+          createdAt: true,
+          user: {
+            select: { id: true },
+          },
+          items: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              price: true,
+              image: true,
+              quantity: true,
+            },
+          },
+        },
+      });
+
+      // 3. Check if they have permissions to see the order
+      const ownsOrder = order.user.id === context.request.userId;
+      const hasPermissionToSeeOrder = context.request.user.permissions.includes(
+        "ADMIN"
+      );
+      if (!ownsOrder || !hasPermissionToSeeOrder) {
+        throw new Error("Insufficient permissions to see this order.");
+      }
+      // 4. Return the order
+      return order;
+    },
+    async orders(parent, args, context, info) {
+      isLoggedIn(context);
+
+      const orders = await context.db.order.findMany({
+        where: { user: { id: context.request.userId } },
+        select: {
+          id: true,
+          total: true,
+          createdAt: true,
+          items: {
+            select: {
+              id: true,
+              quantity: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+      return orders;
     },
   },
 };

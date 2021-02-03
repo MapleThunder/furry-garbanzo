@@ -40,6 +40,8 @@ type Query {
   itemCount(where: ItemWhereInput): Int!
   me: User
   users: [User]!
+  order(id: ID!): Order
+  orders: [Order]!
 }
 
 type User {
