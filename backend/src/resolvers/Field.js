@@ -5,6 +5,11 @@ const FieldResolvers = {
         where: { userId: parent.id },
       });
     },
+    // orders: (parent, args, context, info) => {
+    //   return context.db.order.findMany({
+    //     where: { userId: parent.id },
+    //   });
+    // },
   },
   CartItem: {
     Item: (parent, args, context, info) => {

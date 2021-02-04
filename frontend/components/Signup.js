@@ -5,7 +5,7 @@ import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 
-const SIGN_UP_MUTATION = gql`
+export const SIGN_UP_MUTATION = gql`
   mutation SIGN_UP_MUTATION(
     $email: String!
     $name: String!
@@ -21,9 +21,9 @@ const SIGN_UP_MUTATION = gql`
 
 class Signup extends Component {
   state = {
+    email: "",
     name: "",
     password: "",
-    email: "",
   };
 
   saveToState = (e) => {
@@ -44,9 +44,9 @@ class Signup extends Component {
               e.preventDefault();
               await signup();
               this.setState({
+                email: "",
                 name: "",
                 password: "",
-                email: "",
               });
             }}
           >
