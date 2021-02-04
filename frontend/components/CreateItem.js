@@ -6,7 +6,7 @@ import Form from "./styles/Form";
 import formatMoney from "../lib/formatMoney";
 import Error from "./ErrorMessage";
 
-const CREATE_ITEM_MUTATION = gql`
+export const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
     $title: String!
     $description: String!
@@ -28,11 +28,11 @@ const CREATE_ITEM_MUTATION = gql`
 
 class CreateItem extends Component {
   state = {
-    title: "Hot Pockets",
-    description: "Yipp Yapp",
-    image: "doggo.jpg",
-    largeImage: "doggo.jpg",
-    price: 1000,
+    title: "",
+    description: "",
+    image: "",
+    largeImage: "",
+    price: 0,
   };
 
   handleChange = (e) => {
@@ -53,7 +53,6 @@ class CreateItem extends Component {
       { method: "POST", body: data }
     );
     const file = await res.json();
-    console.log(file);
     this.setState({
       image: file.secure_url,
       largeImage: file.eager[0].secure_url,
@@ -71,12 +70,12 @@ class CreateItem extends Component {
               // Call the mutation
               const res = await createItem();
               // Route the user to the single item page
-              console.log(res);
               Router.push({
                 pathname: "/item",
                 query: { id: res.data.createItem.id },
               });
             }}
+            data-testid="form--create-item"
           >
             <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
@@ -139,4 +138,3 @@ class CreateItem extends Component {
 }
 
 export default CreateItem;
-export { CREATE_ITEM_MUTATION };

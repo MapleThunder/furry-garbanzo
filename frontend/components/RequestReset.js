@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 
-const REQUEST_RESET_MUTATION = gql`
+export const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
     requestReset(email: $email) {
       message
@@ -12,7 +12,7 @@ const REQUEST_RESET_MUTATION = gql`
   }
 `;
 
-class Signin extends Component {
+class RequestReset extends Component {
   state = {
     email: "",
   };
@@ -34,6 +34,7 @@ class Signin extends Component {
                 email: "",
               });
             }}
+            data-testid="form--request-reset"
           >
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Request a Password Reset</h2>
@@ -60,4 +61,4 @@ class Signin extends Component {
   }
 }
 
-export default Signin;
+export default RequestReset;
